@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RPG UI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="menu-overlay" >
+        <div class="menu-window">
+            <h1>Welcome to Turn-based RPG</h1>
+            <button id="new-game">New Game</button>
+        </div>
+    </div>
+
+    <div class="ui-container">
+
+        <div class="enemy-ui">
+            <div id="enemy-hp" class="hp-bar">
+                <div id="enemy-hp-value"></div>
+            </div>
+
+
+            <img id="enemy-portrait" src="https://vignette.wikia.nocookie.net/witcher/images/6/69/Tw2_journal_drowner.png/revision/latest">
+        </div>
+
+        <div class="player-ui">
+            <div class="action-menu">
+                <button class="action-button" id="attack">Attack</button>
+                <button class="action-button" id="guard">Guard</button>
+                <button class="action-button" id="potion">Potion</button>
+            </div>
+            <div id="palyer-hp" class="hp-bar">
+                <div id="player-hp-value"></div>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="code.js"></script>
+</body>
+</html>
