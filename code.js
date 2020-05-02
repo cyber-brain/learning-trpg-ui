@@ -16,7 +16,7 @@ function takeDamage(damageValue) {
         this.hp = 0;
         this.alive = false;
     }
-    this.hpBar.style.width = `${enemy.hp}%`;
+    this.hpBar.style.width = `${this.hp}%`;
 }
 
 function heal(target, amount) {
