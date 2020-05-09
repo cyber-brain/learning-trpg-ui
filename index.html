@@ -1,42 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>RPG UI</title>
+    <title>Turn-based RPG UI v2</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
 
-    <div class="menu-overlay" >
-        <div class="menu-window">
-            <h1>Welcome to Turn-based RPG</h1>
-            <button id="new-game">New Game</button>
+    <div class="main-menu"> <!-- add "hidden" class to close menu -->
+        <div style="margin: 0 auto; width: 40%;max-width: 40rem;">
+            <h1>Turn-Based Monster Battle</h1>
+            <button id="continue-btn" disabled>continue</button>
+            <button id="new-game-btn">new game</button>
         </div>
     </div>
 
-    <div class="ui-container">
+    <div class="game-screen blurred"> <!-- toggle "blurred" class -->
+        <div class="world">
 
-        <div class="enemy-ui">
-            <div id="enemy-hp" class="hp-bar">
-                <div id="enemy-hp-value"></div>
+            <div id="player-container" class="actor">
+                <div class="name">Player</div>
+                <img src="https://vignette.wikia.nocookie.net/witcher/images/2/27/Triss-TW3-new-render.png/revision/latest?cb=20160402173701">
+                <div class="progress">
+                    <div id="hp-player" class="progress-value"></div>
+                </div>
             </div>
-
-
-            <img id="enemy-portrait" src="https://vignette.wikia.nocookie.net/witcher/images/6/69/Tw2_journal_drowner.png/revision/latest">
-        </div>
-
-        <div class="player-ui">
-            <div class="action-menu">
-                <button class="action-button" id="attack">Attack</button>
-                <button class="action-button" id="guard">Guard</button>
-                <button class="action-button" id="potion">Potion</button>
-            </div>
-            <div id="palyer-hp" class="hp-bar">
-                <div id="player-hp-value"></div>
+            <div id="enemy-container" class="actor">
+                <div class="name">Ekimmara</div>
+                <img src="https://vignette.wikia.nocookie.net/witcher/images/d/d8/Tw3_journal_ekimmara.png/revision/latest?cb=20160514172201">
+                <div class="progress">
+                    <div id="hp-enemy" class="progress-value"></div>
+                </div>
             </div>
         </div>
-
-
+        <div class="inputs">
+            <div class="actions">
+                <button id="attack-btn">attack</button>
+                <button id="guard-btn">guard & counter</button>
+                <button id="potion-btn">potion (<span id="potion-counter">3</span>)</button>
+                <button id="menu-btn">menu</button>
+                <button id="log-btn" disabled>game log</button>
+            </div>
+        </div>
     </div>
-    <script src="code.js"></script>
+    <script src="logic.js"></script>
+
+
 </body>
 </html>
