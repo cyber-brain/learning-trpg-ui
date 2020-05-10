@@ -42,18 +42,20 @@ body {
     border: 0.5rem solid grey;
     box-shadow: 0px 1px 3px 2px rgba(0,0,0,0.8);
     border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
 }
 .blurred {
     filter: blur(10px);
 }
 
 .world {
-    background-color: seagreen;
     height: 60%;
     display: flex;
     background: linear-gradient(to bottom, black, rgba(250,250,250,1));
     box-shadow: inset 0px -1px 5px 2px;
     border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .actor {
@@ -182,13 +184,44 @@ button:hover:enabled {
     color: white;
     font-size: 1.6rem;
     text-transform: none;
-    scale: 0;
-    transition: 0.1s scale;
+    transform: scale(0);
+    transition: 0.1s transform;
 }
 
 
 .tooltip:hover::after {
-    scale: 1;
-    transition: 0.2s scale;
+    transform: scale(1);
+    transition: 0.2s transform;
     transform-origin: top left;
+}
+
+.log {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    height: calc(60% - 1rem);
+    width: calc(100% - 1rem) ;
+    border-radius: 0.5rem;
+
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    font-size: 1.6rem;
+    line-height: 2;
+    padding: 0.5rem;
+    text-transform: none;
+    text-decoration: none;
+    overflow: auto
+}
+
+.log > ol {
+    list-style-type: none;
+}
+
+.log > ol > li {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}
+
+.underlined {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }

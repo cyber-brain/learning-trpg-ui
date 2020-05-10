@@ -93,32 +93,56 @@ function Enemy() {
     this.updateHpBar();
 }
 
+function appendToList(listElement, message, addClass) {
+    let newLi = document.createElement("li");
+    newLi.appendChild(document.createTextNode(message));
+    if (addClass) {
+        newLi.setAttribute("class", addClass)
+    }
+    listElement.appendChild(newLi);
+}
+
 let PlayerActions = {
     attack: function (game) {
         let damage = game.player.attackValue();
         game.enemy.takeDamage(damage);
 
-        console.log(`Turn ${game.turnCounter}: Player deals ${damage} dmg to enemy.`);
+        let msg = `Player deals ${damage} dmg to enemy.`
+        appendToList(game.log, msg);
+        console.log(msg);
     },
     guard: function (game) {
         game.player.guarding = true;
         if (Math.random() <= game.player.counterChance) {
             game.enemy.takeDamage(game.player.attackPower * 2);
-            console.log(`Turn ${game.turnCounter}: Player assumes guarding stance and counters for ${game.player.attackPower * 2} dmg.`);
+            let msg = `Player assumes guarding stance and counters for ${game.player.attackPower * 2} dmg.`
+            appendToList(game.log, msg);
+            console.log(msg);
         } else {
-            console.log(`Turn ${game.turnCounter}: Player assumes guarding stance but fails to counter.`);
+            let msg = `Player assumes guarding stance but fails to counter.`
+            appendToList(game.log, msg);
+            console.log(msg);
         }
 
     },
     potion: function (game) {
         if (game.player.potionCount > 0) {
             let hpBefore = game.player.hp;
+
             game.player.heal(40);
             game.player.potionCount -= 1;
             potionCounterSpan.textContent = game.player.potionCount;
 
+            if (game.player.potionCount === 0) {
+                potionBtn.disabled = true;
+            } else {
+                potionBtn.disabled = false;
+            }
+
             let restored = game.player.hp - hpBefore;
-            console.log(`Turn ${game.turnCounter}: Player restored ${restored} HP with a potion.`);
+            let msg = `Player restored ${restored} HP with a potion.`
+            appendToList(game.log, msg);
+            console.log(msg);
         }
     }
 }
@@ -127,9 +151,13 @@ function Game() {
     this.turnCounter = 1;
     this.player = new Player();
     this.enemy = new Enemy();
-    this.log = new Array(),
+    this.log = document.querySelector(".log > ol"),
     this.playTurn = function(action) {
+        appendToList(this.log, `Turn ${this.turnCounter}`, "underlined");
+        console.log(`Turn ${this.turnCounter}`)
+
         action(this);
+
         let playerHpBefore = this.player.hp;
 
         if (this.enemy.alive) {
@@ -147,11 +175,15 @@ function Game() {
         }
 
         let receivedDamage = playerHpBefore - this.player.hp;
-        console.log(`Turn ${this.turnCounter}: Enemy deals ${receivedDamage} dmg to player.`);
-
+        let msg = `Enemy deals ${receivedDamage} dmg to player.`
+        appendToList(this.log, msg);
+        console.log(msg);
         this.turnCounter += 1;
     }
     continueBtn.disabled = false;
+    this.log.innerHTML = "";
+    document.querySelector("div.log").classList.add("hidden");
+    document.querySelector("div.world").classList.remove("blurred");
 }
 
 newGameBtn.addEventListener("click", function(){
@@ -164,6 +196,11 @@ menuBtn.addEventListener("click", function(){
 continueBtn.addEventListener("click", function(){
     MainMenu.close();
 })
+logBtn.addEventListener("click", function() {
+    document.querySelector("div.log").classList.toggle("hidden");
+    document.querySelector("div.world").classList.toggle("blurred");
+})
+
 
 attackBtn.addEventListener("click", function() {
     GAME.playTurn(PlayerActions.attack);
