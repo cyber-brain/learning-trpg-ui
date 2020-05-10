@@ -162,3 +162,33 @@ button:hover:enabled {
     animation-name: shake;
     animation-duration: 0.3s;
  }
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-info);
+    display: block;
+    position: absolute;
+    z-index: 2;
+    right: calc(-1 * (60% + 2rem + 0.5rem));
+    top: 1rem;
+    width: 60%;
+    height: max-content;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 1.6rem;
+    text-transform: none;
+    scale: 0;
+    transition: 0.1s scale;
+}
+
+
+.tooltip:hover::after {
+    scale: 1;
+    transition: 0.2s scale;
+    transform-origin: top left;
+}
